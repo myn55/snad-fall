@@ -1,11 +1,11 @@
-function load()
-    
-end
-
-function update(dt)
+function love.load()
 
 end
 
-function draw()
+function love.update(dt)
 
+end
+
+function love.draw()
+    love.graphics.print("yeah", 400, 300)
 end
