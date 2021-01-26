@@ -14,6 +14,11 @@ local function setColor(r, g, b)
     love.graphics.setColor(r/255, g/255, b/255)
 end
 
+local function newCell()
+    
+end
+
+
 -- Main
 function love.load()
     -- Window settings
@@ -51,6 +56,9 @@ function love.draw()
     setColor(unpack(background.color))
     love.graphics.rectangle('fill', 0, 0, WIDTH, HEIGHT)
 
+    -- TODO
+    -- Draw cells
+
     -- DEBUGGING
     -- Draw gridlines to represent rows and columns
     setColor(60, 20, 20)
@@ -60,12 +68,9 @@ function love.draw()
             love.graphics.rectangle('line', x, y, SCALE, SCALE)
         end
     end
-
-    -- TODO
-    -- Draw cells
 end
 
 function love.mousepressed()
-    local x, y = mouse.getX(), mouse.getY()
+    local x, y = math.floor(mouse.getX()/SCALE), math.floor(mouse.getY()/SCALE)
     print(x, y)
 end
