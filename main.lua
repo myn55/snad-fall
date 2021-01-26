@@ -9,9 +9,13 @@ local grid -- The grid containing all cells with rows and columns dictated by SC
 local cells -- An array containing all types of cells
 
 -- Local functions
-local function setColor(r, g, b)
+local function setColor(r, g, b, a)
     -- Love2d takes RGB values of 0-1 as default instead of 0-255
-    love.graphics.setColor(r/255, g/255, b/255)
+    love.graphics.setColor(r/255, g/255, b/255, a)
+end
+
+local function setCell(row, column, newCell)
+    grid.cellarray[row][column] = newCell
 end
 
 
@@ -20,6 +24,24 @@ function love.load()
     -- Window settings
     love.window.setTitle("snad fall")
     love.window.setMode(WIDTH, HEIGHT, {centered = true, resizable = false})
+
+    -- TODO
+    --[[Cells]]--
+    cells = {}
+
+    function cells:newCell(color)
+        local cell = {
+            id = #self; -- ID of the cell; depends on the order of which the newCell() is called
+            age = 0; -- Total lifetime of the cell
+            color = color; -- Color of the cell; four integer array
+        }
+
+        table.insert(self, cell)
+        return cell
+    end
+
+    cells.air = cells:newCell({0, 0, 0, 0})
+    cells.sand = cells:newCell({185, 125, 25, 1})
 
     --[[Grid]]--
     grid = {
@@ -32,32 +54,18 @@ function love.load()
     for i=1, grid.rows do
         grid.cellarray[i] = {}
         for j=1, grid.columns do
-            grid.cellarray[i][j] = nil
+            grid.cellarray[i][j] = cells.air
         end
     end
-
-    -- TODO
-    --[[Cells]]--
-    cells = {}
-
-    function cells:newCell()
-        local cell = {
-            id = #self; -- ID of the cell; depends on the order of which the newCell() is called
-            age = 0; -- Total lifetime of the cell
-            color = {0, 0, 0}; -- Color of the cell
-        }
-
-        table.insert(self, cell)
-        return cell
-    end
 end
-
+    
 function love.update(dt)
     function love.mousepressed()
-        local x, y = math.floor(mouse.getX()/SCALE), math.floor(mouse.getY()/SCALE)
-        print(x, y)
+        local row, column = math.floor(mouse.getX()/SCALE)+1, math.floor(mouse.getY()/SCALE)+1
+        setCell(row, column, cells.sand)
+        print(row, column)
     end
-    
+
     -- TODO
     -- Update cells
 end
@@ -69,13 +77,16 @@ function love.draw()
 
     -- TODO
     -- Draw cells
-
-    -- DEBUGGING
-    -- Draw gridlines to represent rows and columns
-    setColor(60, 20, 20)
-    for i=1, grid.rows do
-        for j=1, grid.columns do
+    for j=1, grid.columns do
+        for i=1, grid.rows do
+            local cell = grid.cellarray[i][j]
             local x, y = (i-1)*SCALE, (j-1)*SCALE
+            setColor(unpack(cell.color))
+            love.graphics.rectangle('fill', x, y, SCALE, SCALE)
+
+            -- DEBUGGING
+            -- Draw gridlines to represent rows and columns
+            setColor(60, 20, 20)
             love.graphics.rectangle('line', x, y, SCALE, SCALE)
         end
     end
