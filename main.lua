@@ -66,6 +66,6 @@ function love.draw()
 end
 
 function love.mousepressed()
-    local x, y = mouse.getX, mouse.getY
+    local x, y = mouse.getX(), mouse.getY()
     print(x, y)
 end
