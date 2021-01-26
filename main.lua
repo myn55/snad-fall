@@ -15,10 +15,6 @@ local function setColor(r, g, b)
     love.graphics.setColor(r/255, g/255, b/255)
 end
 
-local function newCell()
-
-end
-
 
 -- Main
 function love.load()
@@ -48,6 +44,11 @@ function love.load()
 
     -- TODO
     --[[Cells]]--
+    cells = {}
+
+    function cells:newCell()
+        
+    end
 end
 
 function love.update(dt)
