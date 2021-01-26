@@ -1,6 +1,9 @@
 -- Constants
 local WIDTH, HEIGHT, SCALE = 1200, 800, 50
 
+-- Shortcuts
+local mouse = love.mouse
+
 -- Variables
 local background -- The background of the entire window
 local grid -- The grid containing all cells with rows and columns dictated by SCALE
@@ -56,4 +59,12 @@ function love.draw()
             love.graphics.rectangle('line', x, y, SCALE, SCALE)
         end
     end
+
+    -- TODO
+    -- Draw cells
+end
+
+function love.mousepressed()
+    local x, y = mouse.getX, mouse.getY
+    print(x, y)
 end
