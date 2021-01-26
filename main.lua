@@ -53,6 +53,11 @@ function love.load()
 end
 
 function love.update(dt)
+    function love.mousepressed()
+        local x, y = math.floor(mouse.getX()/SCALE), math.floor(mouse.getY()/SCALE)
+        print(x, y)
+    end
+    
     -- TODO
     -- Update cells
 end
@@ -74,9 +79,4 @@ function love.draw()
             love.graphics.rectangle('line', x, y, SCALE, SCALE)
         end
     end
-end
-
-function love.mousepressed()
-    local x, y = math.floor(mouse.getX()/SCALE), math.floor(mouse.getY()/SCALE)
-    print(x, y)
 end
