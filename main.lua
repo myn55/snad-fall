@@ -42,7 +42,8 @@ function love.load()
 end
 
 function love.update(dt)
-    
+    -- TODO
+    -- Update cells
 end
 
 function love.draw()
