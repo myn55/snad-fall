@@ -7,6 +7,7 @@ local mouse = love.mouse
 -- Variables
 local background -- The background of the entire window
 local grid -- The grid containing all cells with rows and columns dictated by SCALE
+local cells -- An array containing all types of cells
 
 -- Local functions
 local function setColor(r, g, b)
@@ -15,7 +16,7 @@ local function setColor(r, g, b)
 end
 
 local function newCell()
-    
+
 end
 
 
@@ -34,16 +35,19 @@ function love.load()
     grid = {
         rows = math.floor(WIDTH/SCALE);
         columns = math.floor(HEIGHT/SCALE);
-        cells = {};
+        cellarray = {};
     }
 
     -- Initialize grid.cells as a 2D array
     for i=1, grid.rows do
-        grid.cells[i] = {}
+        grid.cellarray[i] = {}
         for j=1, grid.columns do
-            grid.cells[i][j] = nil
+            grid.cellarray[i][j] = nil
         end
     end
+
+    -- TODO
+    --[[Cells]]--
 end
 
 function love.update(dt)
