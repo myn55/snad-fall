@@ -5,7 +5,6 @@ local WIDTH, HEIGHT, SCALE = 1200, 800, 50
 local mouse = love.mouse
 
 -- Variables
-local background -- The background of the entire window
 local grid -- The grid containing all cells with rows and columns dictated by SCALE
 local cells -- An array containing all types of cells
 
@@ -21,11 +20,6 @@ function love.load()
     -- Window settings
     love.window.setTitle("snad fall")
     love.window.setMode(WIDTH, HEIGHT, {centered = true, resizable = false})
-
-    --[[Background]]--
-    background = {
-        color = {20, 20, 20};
-    }
 
     --[[Grid]]--
     grid = {
@@ -47,7 +41,14 @@ function love.load()
     cells = {}
 
     function cells:newCell()
-        
+        local cell = {
+            id = #self; -- ID of the cell; depends on the order of which the newCell() is called
+            age = 0; -- Total lifetime of the cell
+            color = {0, 0, 0}; -- Color of the cell
+        }
+
+        table.insert(self, cell)
+        return cell
     end
 end
 
@@ -58,7 +59,7 @@ end
 
 function love.draw()
     -- Draw background
-    setColor(unpack(background.color))
+    setColor(20, 20, 20)
     love.graphics.rectangle('fill', 0, 0, WIDTH, HEIGHT)
 
     -- TODO
