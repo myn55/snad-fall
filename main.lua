@@ -43,7 +43,7 @@ function love.load()
     end
 
     cells.air = cells:newCell({0, 0, 0, 0})
-    cells.sand = cells:newCell({185, 125, 25, 1})
+    cells.sand = cells:newCell({185, 125, 25})
 
     --[[Grid]]--
     grid = {
@@ -70,11 +70,17 @@ function love.update(dt)
 
     -- TODO
     -- Update cells
-    for j=grid.columns, 1 -1 do
+    for j=grid.columns, 1, -1 do
         for i=1, grid.rows do
             local cell = grid.cellarray[i][j]
             local x, y = (i-1)*SCALE, (j-1)*SCALE
-            print(x, y) -- DEBUG
+            
+            -- Cell position update
+            if cell.id == 0 then -- Air
+                return
+            elseif cell.id == 1 then -- Sand
+                
+            end
         end
     end
 end
