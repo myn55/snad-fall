@@ -81,7 +81,7 @@ function love.draw()
         for i=1, grid.rows do
             local cell = grid.cellarray[i][j]
             local x, y = (i-1)*SCALE, (j-1)*SCALE
-            setColor(unpack(cell.color))
+            setColor(cell.color)
             love.graphics.rectangle('fill', x, y, SCALE, SCALE)
 
             -- DEBUGGING
