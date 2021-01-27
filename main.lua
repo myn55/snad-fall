@@ -19,6 +19,10 @@ local function setCell(row, column, newCell)
     grid.cellarray[row][column] = newCell
 end
 
+local function inBounds(row, column)
+    return (row <= grid.rows and column <= grid.columns and true or false)
+end
+
 
 -- Main
 function love.load()
