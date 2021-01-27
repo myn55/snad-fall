@@ -34,6 +34,7 @@ function love.load()
         local cell = {
             id = #self; -- ID of the cell; depends on the order of which the newCell() is called
             age = 0; -- Total lifetime of the cell
+            clock = 0; -- Time since cell was last updated
             color = color; -- Color of the cell; four integer array
         }
 
@@ -64,7 +65,7 @@ function love.update(dt)
     function love.mousepressed()
         local row, column = math.floor(mouse.getX()/SCALE)+1, math.floor(mouse.getY()/SCALE)+1
         setCell(row, column, cells.sand)
-        print(row, column)
+        print(row, column) -- DEBUG
     end
 
     -- TODO
@@ -72,14 +73,15 @@ function love.update(dt)
     for j=grid.columns, 1 -1 do
         for i=1, grid.rows do
             local cell = grid.cellarray[i][j]
-            print(cell)
+            local x, y = (i-1)*SCALE, (j-1)*SCALE
+            print(x, y) -- DEBUG
         end
     end
 end
 
 function love.draw()
     -- Draw background
-    setColor(20, 20, 20)
+    setColor({20, 20, 20})
     love.graphics.rectangle('fill', 0, 0, WIDTH, HEIGHT)
 
     -- TODO
@@ -93,7 +95,7 @@ function love.draw()
 
             -- DEBUGGING
             -- Draw gridlines to represent rows and columns
-            setColor(60, 20, 20)
+            setColor({60, 20, 20})
             love.graphics.rectangle('line', x, y, SCALE, SCALE)
         end
     end
