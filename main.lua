@@ -7,6 +7,7 @@ local mouse = love.mouse
 -- Variables
 local grid -- The grid containing all cells with rows and columns dictated by SCALE
 local cells -- An array containing all types of cells
+local selectedRow, selectedColumn -- Selected row and column from the selectCell local function
 
 -- Local functions
 local function setColor(color)
@@ -15,8 +16,20 @@ local function setColor(color)
     love.graphics.setColor(r/255, g/255, b/255, a)
 end
 
+local function selectCell(row, column)
+    if grid.cellarray[row][column] ~= nil then
+        selectedRow, selectedColumn = row, column
+    else
+        selectedRow, selectedColumn = nil, nil
+    end
+end
+
 local function setCell(row, column, newCell)
     grid.cellarray[row][column] = newCell
+end
+
+local function getCell(addRow, addColumn)
+    return grid.cellarray[selectedRow+addRow][selectedColumn+addColumn]
 end
 
 local function inBounds(row, column)
@@ -83,7 +96,9 @@ function love.update(dt)
             if cell.id == 0 then -- Air
                 return
             elseif cell.id == 1 then -- Sand
-                
+                if (inBounds()) then
+
+                end
             end
         end
     end
