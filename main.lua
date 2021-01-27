@@ -9,7 +9,8 @@ local grid -- The grid containing all cells with rows and columns dictated by SC
 local cells -- An array containing all types of cells
 
 -- Local functions
-local function setColor(r, g, b, a)
+local function setColor(color)
+    local r, g, b, a = color[1], color[2], color[3], color[4]
     -- Love2d takes RGB values of 0-1 as default instead of 0-255
     love.graphics.setColor(r/255, g/255, b/255, a)
 end
@@ -68,6 +69,12 @@ function love.update(dt)
 
     -- TODO
     -- Update cells
+    for j=grid.columns, 1 -1 do
+        for i=1, grid.rows do
+            local cell = grid.cellarray[i][j]
+            print(cell)
+        end
+    end
 end
 
 function love.draw()
