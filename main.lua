@@ -77,7 +77,7 @@ function love.draw()
 
     -- TODO
     -- Draw cells
-    for j=1, grid.columns do -- TODO make draw loop start from bottom up
+    for j=grid.columns, 1, -1 do -- TODO make draw loop start from bottom up
         for i=1, grid.rows do
             local cell = grid.cellarray[i][j]
             local x, y = (i-1)*SCALE, (j-1)*SCALE
